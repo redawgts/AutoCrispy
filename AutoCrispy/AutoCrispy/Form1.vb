@@ -176,15 +176,15 @@ Public Class Form1
     End Sub
 
     Private Sub InputBrowse_Click(sender As Object, e As EventArgs) Handles InputBrowse.Click
-        InputTextBox.Text = GetFolder()
+        InputTextBox.Text = GetFolder(InputTextBox.Text)
     End Sub
 
     Private Sub OutputBrowse_Click(sender As Object, e As EventArgs) Handles OutputBrowse.Click
-        OutputTextBox.Text = GetFolder()
+        OutputTextBox.Text = GetFolder(OutputTextBox.Text)
     End Sub
 
     Private Sub ExeBrowse_Click(sender As Object, e As EventArgs) Handles ExeBrowse.Click
-        ExeTextBox.Text = GetFolder()
+        ExeTextBox.Text = GetFolder(ExeTextBox.Text)
     End Sub
 
     Private Sub ExeTextBox_TextChanged(sender As Object, e As EventArgs) Handles ExeTextBox.TextChanged
@@ -933,6 +933,16 @@ Public Class Form1
             End If
         End Using
         Return ""
+    End Function
+
+    Private Function GetFolder(Path As String) As String
+        Using FBD As New FolderBrowserDialog
+            FBD.SelectedPath = Path
+            If FBD.ShowDialog = DialogResult.OK Then
+                Return FBD.SelectedPath
+            End If
+        End Using
+        Return Path
     End Function
 
     Private Function Quote(Source As String) As String
